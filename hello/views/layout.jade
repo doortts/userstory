@@ -1,6 +1,27 @@
 !!!
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body!= body
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(src='/socket.io/socket.io.js')
+		script(src='http://code.jquery.com/jquery-1.6.4.min.js')
+		script(type='text/javascript')
+			window.onload = function(){
+				var socket = io.connect();
+				socket.emit('showroom', function(data){
+					console.log(data);
+				})
+
+				var room = prompt('방 이름을 입력해주세요','이름');
+
+				socket.emit('join', room);
+				socket.on('message', function(data){
+					$('<p>' + data + '</p>').appendTo('body');
+				});
+
+				document.getElementById('btn').onclick = function(){
+					socket.emit('message', 'socket.io room message');
+				}
+
+			};
+	body!= body
