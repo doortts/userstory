@@ -1,0 +1,81 @@
+<!-- views/index.html -->
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
+	<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore.js"></script>
+	<script type="text/javascript" src="http://documentcloud.github.com/backbone/backbone.js"></script>
+	<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+	<style type='text/css'>
+		textarea {
+			height: 500px;
+			width: 500px;
+		}
+
+		input[type="text"] {
+			width: 450px;
+		}
+
+		#chatArea {
+			width: 600px;
+			margin: 10px auto;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var Message = Backbone.Model.extend({});
+			var MessageStore = Backbone.Collection.extend({
+			  model: Message,
+			  url: 'http://127.0.0.1:8888/messages'
+			});
+
+			var messages = new MessageStore;
+
+			messages.bind('add', function(message) {
+			  messages.fetch({success: function(){view.render();}});
+			});
+
+			var ProductView = Backbone.View.extend({
+
+			   events: { "submit #chatForm" : "handleNewMessage" }
+
+			  , handleNewMessage: function(data) {
+			    var inputField = $('input[name=newMessageString]');
+			    messages.create({content: inputField.val()});
+			    inputField.val('');
+			  }
+
+			  , render: function() {
+			    var data   = messages.map(function(message) { return message.get('content') + '\n'});
+			    var result = data.reduce(function(memo,str) { return memo + str }, '');
+			    $("#chatHistory").text(result);
+			    this.delegateEvents();
+			    return this;
+			  }
+
+			});
+
+			var view = new ProductView({el: $('#chatArea')});
+
+			setInterval(function(){
+			  messages.fetch({success: function(){view.render();}});
+			},10000)
+		}
+	</script>
+</head>
+
+<body>
+<div id="chatArea">
+	<textarea id='chatHistory'></textarea>
+
+	<form method="post" action="#" id='chatForm' name="newMessage" onsubmit="return false">
+		<input name='newMessageString' type="text"/>
+		<input type="submit" value='send'/>
+	</form>
+</div>
+</body>
+
+</html>
