@@ -26,6 +26,34 @@
 	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	<script type="text/javascript">
+		window.onload = function () {
+			window.App = Ember.Application.create();
+			App.Userstory = Ember.Object.create();
+			App.StoryList = Ember.Object.extend({
+				list: [],
+				add: function(story){
+					this.list.push({"id": _.uniqueId(), "story": story});
+				},
+				remove: function(story){
+					this.list.splice( _.indexOf(this.list, story), 1 );
+				}.observes('list')
+			});
+			App.storyList = App.StoryList.create();
+			App.storyList.add("언제나 찾아오는 부두의 이별이");
+
+//			App.UserstoryView = Ember.View.extend({
+//				templateName: 'userstoryView',
+//				userstories: storyList.get("list")
+//			});
+//			var userstoryView = App.UserstoryView.create();
+//			userstoryView.appendTo('#userstory_list');
+			setTimeout(function(){
+				App.storyList.remove(App.storyList.list[0] );
+				console.log(App.storyList.list);
+			}, 3000);
+		}
+	</script>
 </head>
 
 <body>
@@ -66,12 +94,7 @@
 					<li><a href="#">Link</a></li>
 					<li><a href="#">Link</a></li>
 					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
 					<li class="nav-header">인증</li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
 					<li><a href="#">Link</a></li>
 				</ul>
 			</div>
@@ -85,13 +108,14 @@
 				<input type="text" id="userstory_input" class="input-medium span10" placeholder="예) 로그인 유저는 잘못 등록한 자신의 게시물을 ...">
 				<button type="submit" class="btn">Enter</button>
 			</form>
-
 			<div id="userstory_list">
-				<ol>
-					<li>사용자는 게시물 목록을 볼 수 있다.</li>
-					<li>로그인 유저는 게시물을 등록할 수 있다.</li>
-					<li>로그인 유저는 게시물에 댓글을 남길 수 있다.</li>
-				</ol>
+				<script type="text/x-handlebars">
+					<ul>
+						{{#each App.storyList.get("list")}}
+						<li>{{id}}.{{story}}</li>
+						{{/each}}
+					</ul>
+				</script>
 			</div>
 		</div>
 	</div>
@@ -116,5 +140,9 @@
 <script src="../assets/js/bootstrap-carousel.js"></script>
 <script src="../assets/js/bootstrap-typeahead.js"></script>
 
+<script src="http://code.jquery.com/jquery-1.7.1.js"></script>
+<script src="http://underscorejs.org/underscore-min.js"></script>
+<script src="http://backbonejs.org/backbone-min.js"></script>
+<script src="http://cloud.github.com/downloads/emberjs/ember.js/ember-0.9.4.min.js"></script>
 </body>
 </html>
