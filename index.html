@@ -34,22 +34,19 @@
 				list: [],
 				add: function(story){
 					this.list.push({"id": _.uniqueId(), "story": story});
-				},
+				}.observes('list'),
 				remove: function(story){
 					this.list.splice( _.indexOf(this.list, story), 1 );
-				}.observes('list')
+				}.observes('list'),
+				getList: function(){
+					return this.get("list");
+				}
 			});
 			App.storyList = App.StoryList.create();
 			App.storyList.add("언제나 찾아오는 부두의 이별이");
 
-//			App.UserstoryView = Ember.View.extend({
-//				templateName: 'userstoryView',
-//				userstories: storyList.get("list")
-//			});
-//			var userstoryView = App.UserstoryView.create();
-//			userstoryView.appendTo('#userstory_list');
 			setTimeout(function(){
-				App.storyList.remove(App.storyList.list[0] );
+				App.storyList.remove( App.storyList.list[0] );
 				console.log(App.storyList.list);
 			}, 3000);
 		}
@@ -111,7 +108,7 @@
 			<div id="userstory_list">
 				<script type="text/x-handlebars">
 					<ul>
-						{{#each App.storyList.get("list")}}
+						{{#each App.storyList.list}}
 						<li>{{id}}.{{story}}</li>
 						{{/each}}
 					</ul>
