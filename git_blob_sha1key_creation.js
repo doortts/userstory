@@ -20,6 +20,7 @@ var fs = require('fs');
 var util = require('util');
 
 var shasum = crypto.createHash('sha1');
+
 fs.stat('hello.txt', function (err, stats) {
     if (err) throw err;
 
