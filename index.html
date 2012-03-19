@@ -34,10 +34,10 @@
 				list: [],
 				add: function(story){
 					this.list.push({"id": _.uniqueId(), "story": story});
-				}.observes('list'),
+				},
 				remove: function(story){
 					this.list.splice( _.indexOf(this.list, story), 1 );
-				}.observes('list'),
+				},
 				getList: function(){
 					return this.get("list");
 				}
@@ -140,6 +140,6 @@
 <script src="http://code.jquery.com/jquery-1.7.1.js"></script>
 <script src="http://underscorejs.org/underscore-min.js"></script>
 <script src="http://backbonejs.org/backbone-min.js"></script>
-<script src="http://cloud.github.com/downloads/emberjs/ember.js/ember-0.9.4.min.js"></script>
+<script src="http://cloud.github.com/downloads/emberjs/ember.js/ember-0.9.5.js"></script>
 </body>
 </html>
