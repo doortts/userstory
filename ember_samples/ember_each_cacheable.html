@@ -5,29 +5,31 @@
 	<title>is-it-possible-to-loop-over-a-computed-array-in-emberjs</title>
 	<script type="text/javascript">
 		window.onload = function() {
-			story = {
-				url : "127.0.0.1",
-				text: "hello"
-			}
-			Handlebars.registerHelper('link', function (object) {
-				return new Handlebars.SafeString(
-						"<a href='" + object.url + "'>" + object.text + "</a>"
-				);
+			App = Ember.Application.create({
+				games:[1, 2, 3],
+				gamesA:Em.computed(
+						function () {
+							return this.get('games').map(function (game) {
+								return game + 'a';
+							})
+						}).property('games').cacheable()
 			});
 		}
 	</script>
 </head>
 
 <body>
+<!-- http://stackoverflow.com/questions/9678323/is-it-possible-to-loop-over-a-computed-array-in-emberjs -->
 <script type="text/x-handlebars">
-	{{{link story}}}
+	{{#each App.games}}
+		{{this}}
+	{{/each}}
+	{{#each App.gamesA}}
+		{{this}}
+	{{/each}}
 </script>
 
-<script type="text/javascript">
-
-</script>
-<div id="foo"></div>
-<div id="bar"></div>
+<div id="link"></div>
 <script src="http://code.jquery.com/jquery-1.7.1.js"></script>
 <script src="http://underscorejs.org/underscore-min.js"></script>
 <script src="http://cloud.github.com/downloads/emberjs/ember.js/ember-0.9.5.js"></script>

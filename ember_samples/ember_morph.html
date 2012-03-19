@@ -5,27 +5,27 @@
 	<title>is-it-possible-to-loop-over-a-computed-array-in-emberjs</title>
 	<script type="text/javascript">
 		window.onload = function() {
-			story = {
-				url : "127.0.0.1",
-				text: "hello"
-			}
-			Handlebars.registerHelper('link', function (object) {
-				return new Handlebars.SafeString(
-						"<a href='" + object.url + "'>" + object.text + "</a>"
-				);
-			});
+			var morph = Metamorph("HI!");
+			$("#foo").html(morph.outerHTML());
+			setTimeout(function () {
+				morph.html("BYE!");
+			}, 3000);
+
+			setTimeout(function () {
+				morph.html("Good BYE!");
+			}, 6000);
+
+			setTimeout(function () {
+				morph.remove();
+			}, 9000);
+
+
 		}
 	</script>
 </head>
 
 <body>
-<script type="text/x-handlebars">
-	{{{link story}}}
-</script>
 
-<script type="text/javascript">
-
-</script>
 <div id="foo"></div>
 <div id="bar"></div>
 <script src="http://code.jquery.com/jquery-1.7.1.js"></script>
