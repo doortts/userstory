@@ -34,11 +34,6 @@
 				console.log("tangled!");
 				Myapp.person.set("firstName", "gokumi");
 			}, 3000);
-
-			var view = Ember.View.create({
-				templateName:'say-hello',
-				name:"Myapp.person.fullName"
-			});
 		};
 
 	</script>
@@ -46,7 +41,7 @@
 
 <body>
 
-<script type="text/x-handlebars" data-template-name="say-hello">
+<script type="text/x-handlebars">
 	Name: {{Myapp.person.fullName}} <br/>
 	words: {{Myapp.person.wordLength}}
 </script>
