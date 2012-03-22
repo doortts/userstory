@@ -14,7 +14,7 @@
 // node git_blob_sha1key_creation.js hello.txt
 // 37706c351c7afbb4b0e1cb58ff7440294060dd76
 //
-var gitHashValue = function(filename, cb){
+gitHashValue = function(filename, cb){
 	var crypto = require('crypto');
 	var fs = require('fs');
 	var util = require('util');
@@ -26,14 +26,9 @@ var gitHashValue = function(filename, cb){
 	    var BLOB_HEADER = util.format("blob %s\0", stats.size);
 	    shasum.update(BLOB_HEADER);
 
-		var stream = fs.ReadStream(filename);
-		stream.on('data', function(d) {
-		  shasum.update(d);
-		});
-
-		stream.on('end', function() {
-		  var d = shasum.digest('hex');
-		  cb( d + '');
+		fs.readFile(filename, function (err, data) {
+			shasum.update(data);
+			cb(shasum.digest('hex'));
 		});
 	});
 }
