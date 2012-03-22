@@ -6,19 +6,17 @@ var assert = require('assert'),
     git = require('./githash2'),
     step = require('step');
 
-
-// describe('githash.js:', function(){
 //   describe('hashValue()', function(){
 //     it('"hello.txt" file should be 37706c351c7afbb4b0e1cb58ff7440294060dd76', function(done){
 //       var targetFile = "hello.txt";
 //       var expectedSHA1 = "37706c351c7afbb4b0e1cb58ff7440294060dd76";
 //       git.hashValue(targetFile, function(data){
-//         assert.equal(data, expectedSHA1);
+//         data.should.equal(expectedSHA1);
 //         done();
 //       });
 //     })
 //   })
-// })
+
 
 	// 테스트 스위트(Test Suite) 만들기
 suite('git.hashValue()', function () {
@@ -29,7 +27,7 @@ suite('git.hashValue()', function () {
 
         // When 
         git.hashValue(targetFile, function(data){
-        // Then
+        	// Then
 			assert.equal(data, expectedSHA1);
 			done();
         });
