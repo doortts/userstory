@@ -17,10 +17,9 @@ var assert = require('assert'),
 //     })
 //   })
 
-
-	// 테스트 스위트(Test Suite) 만들기
+// 테스트 스위트(Test Suite) 만들기
 suite('git.hashValue()', function () {
-    test('hello.txt file hashValue', function (done) {
+    test('hello.txt file git hashValue', function (done) {
         // Given
         var targetFile = "hello.txt";
         var expectedSHA1 = "37706c351c7afbb4b0e1cb58ff7440294060dd76";
@@ -32,7 +31,7 @@ suite('git.hashValue()', function () {
 			done();
         });
     }),
-    test('hello.txt file hashValue2', function (done) {
+    test('hello.txt file git hashValue #2', function (done) {
     	var f = {};
 
        	step(
@@ -40,7 +39,7 @@ suite('git.hashValue()', function () {
        			f.targetFile = "hello.txt";
 				f.expectedSHA1 = "37706c351c7afbb4b0e1cb58ff7440294060dd76";
 				ready();
-       		}
+       		},
         	function when(){
         		git.hashValue(f.targetFile, this);
         	},
