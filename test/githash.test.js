@@ -20,39 +20,46 @@ var assert = require('assert'),
 //   })
 // })
 
-var a = function(name, cb){
-	console.log('entering a');
-	cb( "<" + name + ">");
-}
-
-
 	// 테스트 스위트(Test Suite) 만들기
-suite('GIT FILESYSTEM:', function () {
-    test('hashValue()', function (done) {
+suite('git.hashValue()', function () {
+    test('hello.txt file hashValue', function (done) {
         // Given
         var targetFile = "hello.txt";
         var expectedSHA1 = "37706c351c7afbb4b0e1cb58ff7440294060dd76";
 
         // When 
-        // Then
         git.hashValue(targetFile, function(data){
+        // Then
 			assert.equal(data, expectedSHA1);
 			done();
         });
     }),
-    test('hashValue()', function () {
-        // Given
-        var targetFile = "hello.txt";
-        var expectedSHA1 = "37706c351c7afbb4b0e1cb58ff7440294060dd76-";
+    test('hello.txt file hashValue2', function (done) {
+    	var f = {};
 
-        step(
+       	step(
+       		function given(){
+       			f.targetFile = "hello.txt";
+				f.expectedSHA1 = "37706c351c7afbb4b0e1cb58ff7440294060dd76";
+				ready();
+       		}
         	function when(){
-        		git.hashValue(targetFile);
+        		git.hashValue(f.targetFile, this);
         	},
         	function then(data){
-				console.log(data);
-				assert.equal('2', '1');
+        		assert.equal(data, f.expectedSHA1);
+        		done();
         	}
         );
-    });
+    }),
+    test('sync test', function () {
+    	//given
+    	var target = ["a", "b"];
+		
+		//when
+		var leftHand = target.shift();
+
+		//then
+		assert.equal(leftHand, "a");
+    })
 });
