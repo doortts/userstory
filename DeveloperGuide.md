@@ -1,26 +1,34 @@
 n4wiki Developer Style Guide
-===========================
+===
 
 Coding Convention
-------------------
+---
  - Felix's Node.js Style을 따릅니다.
      - http://nodeguide.atelier.weaveus.com/style.html
-     - [단, 클로저 중첩Nested하기](http://nodeguide.atelier.weaveus.com/style.html#클로저-중첩nested하기)는 예외
+     - [단, 클로저 중첩Nested하기](http://nodeguide.atelier.weaveus.com/style.html#클로저-중첩nested하기)는 우선 예외로 하고 작성자가 가독성을 고려해 편한데로 작성
  - callback 함수의 첫 번째 argument는 err
  - callback을 arguement로 넘여야 한다면, 맨 마지막에 표시
+
     ```
     listen.on('event', function(err, data, callback)){ ...
     ```
- - private method는 _로 시작
+
+ - private method는 "_"로 시작
+
+    ```
+    var _go = function(){...}
+    ```
+
  - CoffeeScript의 경우 아래 Style을 따릅니다.
     - https://github.com/polarmobile/coffeescript-style-guide
  - js file로 클래스를 구분
+
     ```
     예) GitFS Class는 => project_home/lib/gitfs.js
     ```
 
 Achitechture
-------------
+---
  - Foundation
     - Language: Javascript with [underscore.js](http://documentcloud.github.com/underscore/)
     - Platform: [node.js](http://nodejs.org)
@@ -38,14 +46,14 @@ Achitechture
     - TBD
 
 Documentation & Comments
-------------------------
+---
  - Api Doc Generation: [JSDOC](http://www.2ality.com/2011/08/jsdoc-intro.html)
  - Comments Sample: https://github.com/visionmedia/mocha/blob/master/lib/mocha.js
  - 기타 가이드 문서는 Markdown Plain Text로 작성이 기본
     - 추후 n4wiki에서 기능 지원시 Markdown Extra 사용 (http://michelf.com/projects/php-markdown/extra/)
 
 Test
-----
+---
  - Write and Run
     - write: ./test 디렉터리에 작성
     - run: mocha -u tdd -R spec
@@ -58,16 +66,19 @@ Test
       - Sameple Project: http://travis-ci.org/doortts/node-test-samples
 
 Development Environment
-------------------------
+---
+ - [Editor: Sublime Text2](http://www.sublimetext.com/2)(추천), vim, etc.. :)
+ - Debugging: Google Chrome + [node-inspector](https://github.com/dannycoates/node-inspector)
  - Source Code Encoding Type: UTF8
  - Folder 구성
     - express에서 생성한 폴더 기본
     - 추가 폴더 (n4wiki가 project_home일 때)
 
+        ```
         n4wiki
             ./doc
             ./lib       <- 직접 작성한 라이브러리
             ./lib_ext   <- 직접 가져온 외부 모듈
             ./node_module
             ./test
-
+        ```
